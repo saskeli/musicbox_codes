@@ -2,9 +2,6 @@
 #define TAU 6.2831853
 #define C_FREQ 100000
 #define WL 400000
-#define t1 0.1666666666666
-#define t2 0.0083333333333
-#define t3 0.0001984126984
 
 typedef int (*valueCalc)(float);
 
@@ -70,13 +67,9 @@ int square(float frac) {
 }
 
 float msin(float x) {
-  float ret = x;
-  float nx = -x * x * x;
-  ret += nx * t1;
-  nx = -nx * x * x;
-  ret += nx * t2;
-  nx = -nx * x * x;
-  return ret + nx*t3;
+  float x2 = x * x;
+  float x3 = x * x2;
+  return x - (x3 * (840 + x2 * (x2 - 42))) * 0.0001984126984126984;
 }
 
 int sine(float frac) {
